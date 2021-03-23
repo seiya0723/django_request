@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Hello World test!!</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+</head>
+<body>
+
+    <h1 class="bg-primary text-center text-white">DTLのif文とfor文</h1>
+
+
+
+    <main class="container">
+
+
+        <!-- DTLのif文 Trueであれば直下が、Falseであればelseが実行される
+             lengthフィルタで要素数を表示できる
+
+             pythonと違い、インデントで区切ることはできないので、endifを忘れずに。
+        -->
+        {% if books %}
+        <div>{{ books|length }}件ヒットしました</div>
+        {% else %}
+        <div>見つかりませんでした</div>
+        {% endif %}
+
+
+        <!-- イテラブルな要素(books)を1つずつ取り出し、bookとする-->
+        {% for book in books %}
+        <div class="border">
+
+            <!-- 1つのbookに存在する属性値(id title price )を参照する -->
+            <div>書籍ID:{{ book.id }}</div>
+            <div>タイトル:{{ book.title }}</div>
+            <div>価格:{{ book.price }}円</div>
+
+
+            <!--購入フォーム-->
+            <form action="" method="POST">
+                <!--↑method="POST"とすることでPOSTリクエストを送信することができる。
+                    ↓POST文を送信する時、CSRFトークンをformタグの中に入れ、同時に送信させる。  -->
+                {% csrf_token %}
+                <button class="btn btn-outline-primary" value="{{ book.id }}" name="id" type="submit">買う</button>
+            </form>
+
+        </div>
+        {% endfor %}
+    
+    
+    </main>
+
+
+
+
+
+</body>
+</html>
+
