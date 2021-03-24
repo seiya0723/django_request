@@ -14,8 +14,14 @@ class IndexView(View):
 
         books   = BOOKS_DATA
         #books   = []
+        """
+        request.GET["name属性で指定した値"]
+        """
 
-        context = { "books":books }
+        context = { "books":books,
+                    "message":"HelloWorld",
+                
+                }
         
         return render(request,"hello/index.html",context)
 
